@@ -1,0 +1,40 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+$fa-font-path: '../webfonts';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+// Fontawesome
+@import '~@fortawesome/fontawesome-free/scss/fontawesome.scss';
+@import '~@fortawesome/fontawesome-free/scss/solid.scss';
+@import '~@fortawesome/fontawesome-free/scss/brands.scss';
+@import '~@fortawesome/fontawesome-free/scss/regular.scss';
+
+
+$images: (
+    '/images/background2.jpg',
+    '/images/background3.jpg',
+);
+
+$img: nth($images, random(2));
+
+.bg {
+    /* The image used */
+    background-image: url($img);
+
+    /* Full height */
+    height: 100%;
+
+    /* Center and scale the image nicely */
+    // background-position: unset;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+  }
+
+
+
