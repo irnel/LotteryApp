@@ -1,3 +1,3 @@
 # LotteryApp
 
-#Lottery Client laravel app
+Lottery Client laravel app
