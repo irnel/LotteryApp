@@ -10,7 +10,18 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                @auth
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('home') }}">
+                            <i class="fas fa-home mr-1"></i>Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ route('my-events') }}">
+                            <i class="far fa-calendar-check mr-1"></i>My Events
+                        </a>
+                    </li>
+                @endauth
             </ul>
 
             <!-- Right Side Of Navbar -->

@@ -18,7 +18,9 @@ Route::view('/register', 'auth.register');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'Home\HomeController@index')->name('home');
+
+Route::get('/my-events', 'Event\EventController@my_events')->name('my-events');
 
 // Redirect to home by default
 Route::redirect('/', 'home');

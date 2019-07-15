@@ -10,9 +10,11 @@
                 <div class="alert alert-success" role="alert">
                     {{ session('status') }}
                 </div>
+
             @endif
 
-            You are logged in!
+            {{ $events }}
+
         </div>
     </div>
 </div>
