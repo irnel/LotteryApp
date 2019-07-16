@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Home;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Client;
+use App\Services\ApiInterface;
 
 class HomeController extends Controller
 {
@@ -14,12 +15,12 @@ class HomeController extends Controller
      * @return void
      */
 
-    protected $client;
+    protected $service;
 
-    public function __construct(Client $client)
+    public function __construct(ApiInterface $service)
     {
         $this->middleware('auth');
-        $this->client = $client;
+        $this->service = $service;
     }
 
     /**
@@ -29,9 +30,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $response = $this->client->get('/users');
-        $data = $response->getBody()->__toString();
-
-        return view('home')->with('events', 'index works !!!!!!!');
+        $events = $this->service->getAllAvailableEvents();
+        return view('home')->with('events', $events);
     }
 }

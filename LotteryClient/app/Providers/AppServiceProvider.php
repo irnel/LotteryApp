@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        // Register client
         $baseUrl = env('API_BASE_URL');
 
         $this->app->singleton('GuzzleHttp\Client', function($api) use ($baseUrl) {
@@ -22,6 +23,12 @@ class AppServiceProvider extends ServiceProvider
                 'base_uri' => $baseUrl
             ]);
         });
+
+        // Register Service Adapter
+        $this->app->bind(
+            'App\Services\ApiInterface',
+            'App\Services\ApiService'
+        );
     }
 
     /**
