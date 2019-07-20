@@ -15,13 +15,20 @@ $fa-font-path: '../webfonts';
 @import '~@fortawesome/fontawesome-free/scss/brands.scss';
 @import '~@fortawesome/fontawesome-free/scss/regular.scss';
 
+// Toastr
+@import '~toastr/toastr';
+
+// plain css
+.body-top {
+    margin-top: 4rem;
+};
 
 $images: (
     '/images/background2.jpg',
     '/images/background3.jpg',
 );
 
-$img: nth($images, random(2));
+$img: nth($images, random(length($images)));
 
 .bg {
     /* The image used */
@@ -35,6 +42,58 @@ $img: nth($images, random(2));
     // background-repeat: no-repeat;
     // background-size: cover;
   }
+
+  /* fixed button FAB */
+.fixed-btn {
+    position: fixed;
+    right: 23px;
+    bottom: 30px;
+    padding-top: 15px;
+    margin-bottom: 0;
+    z-index: 997;
+}
+
+.btn-circle {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    border-radius: 25px;
+}
+
+.btn-circle.btn-xl {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border-radius: 50px;
+}
+
+.btn-circle.btn-lg {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border-radius: 30px;
+}
+
+/* Shadow */
+.element-shadow-sm {
+    -webkit-box-shadow: 3px 11px 32px 0px rgba(0,0,0,0.76);
+    -moz-box-shadow: 3px 11px 32px 0px rgba(0,0,0,0.76);
+    box-shadow: 3px 11px 32px 0px rgba(0,0,0,0.76);
+}
+
+.element-shadow-lg {
+    -webkit-box-shadow: 7px 10px 29px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 7px 10px 29px 0px rgba(0,0,0,0.75);
+    box-shadow: 7px 10px 29px 0px rgba(0,0,0,0.75);
+}
 
 
 

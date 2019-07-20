@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use GuzzleHttp\Client;
 use App\Services\ApiInterface;
 
 class HomeController extends Controller
@@ -16,6 +15,7 @@ class HomeController extends Controller
      */
 
     protected $service;
+    protected $events;
 
     public function __construct(ApiInterface $service)
     {
@@ -32,5 +32,12 @@ class HomeController extends Controller
     {
         $events = $this->service->getAllAvailableEvents();
         return view('home')->with('events', $events);
+    }
+
+    public function events() 
+    {
+        return datatables()
+            ->collection($this->service->getAllAvailableEvents())
+            ->make(true);
     }
 }

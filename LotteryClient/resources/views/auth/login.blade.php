@@ -51,7 +51,7 @@
                         <div class="form-group row mb-2">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary bg-primary btn-block mt-1">
-                                    {{ __('Login') }}
+                                    Login
                                     <i class="fas fa-sign-in-alt ml-2"></i>
                                 </button>
 

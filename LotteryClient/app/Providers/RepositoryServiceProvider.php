@@ -18,6 +18,18 @@ class RepositoryServiceProvider extends ServiceProvider
             'App\Repositories\User\UserRepositoryInterface',
             'App\Repositories\User\UserRepository'
         );
+
+        // Register EventRepository
+        $this->app->bind(
+            'App\Repositories\Event\EventRepositoryInterface',
+            'App\Repositories\Event\EventRepository'
+        );
+
+        // Register CardRepository
+        $this->app->bind(
+            'App\Repositories\Card\CardRepositoryInterface',
+            'App\Repositories\Card\CardRepository'
+        );
     }
 
     /**

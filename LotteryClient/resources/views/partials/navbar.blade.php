@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm">
+<nav class="navbar navbar-expand-md navbar-dark bg-primary shadow-sm fixed-top">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
             {{ config('app.name', 'Lottery App') }}
@@ -29,11 +29,11 @@
                 <!-- Authentication Links -->
                 @guest
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        <a class="nav-link text-white" href="{{ route('login') }}">Login</a>
                     </li>
                     @if (Route::has('register'))
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            <a class="nav-link text-white" href="{{ route('register') }}">Register</a>
                         </li>
                     @endif
                 @else
@@ -48,7 +48,7 @@
                                onclick="event.preventDefault();
                                              document.getElementById('logout-form').submit();">
 
-                                <i class="fas fa-sign-out-alt mr-2"></i>{{ __('Logout') }}
+                                Logout<i class="fas fa-sign-out-alt ml-2"></i>
                             </a>
 
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

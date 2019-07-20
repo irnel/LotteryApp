@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card shadow-lg">
                 <div class="card-header">
-                    <h3 class="text-center">{{ __('Register') }}</h3>
+                    <h3 class="text-center">Register</h3>
                 </div>
 
                 <div class="card-body">
@@ -77,9 +77,7 @@
 
                         <div class="form-group row mb-2">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary bg-primary btn-block">
-                                    {{ __('Save') }}
-                                </button>
+                                <button type="submit" class="btn btn-primary bg-primary btn-block">Save</button>
                             </div>
                         </div>
                     </form>

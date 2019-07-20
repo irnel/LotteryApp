@@ -36,10 +36,11 @@ class UserRepository implements UserRepositoryInterface
 
   public function find($id)
   {
-    if (null === $user = $this->model->find($id)) {
-      throw new ModelNotFoundException("User Not Found");
-    }
+    return $this->model->find($id);
+  }
 
-    return $user;
+  public function getEventsByUserId($userId)
+  {
+      return $this->find($userId)->events;
   }
 }
