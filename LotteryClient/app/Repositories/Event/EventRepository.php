@@ -15,27 +15,20 @@ class EventRepository implements EventRepositoryInterface
     }
 
     public function create(array $event) {
-        return Event::create([
-            'id' => $event['id'],
-            'start_date' => $event['start_date'],
-            'start_time' => $event['start_time'],
-            'card_price' => $event['card_price'],
-            'award' => $event['award'],
-            'event_progress' => $event['event_progress']
-        ]);
+        return Event::create($event);
     }
 
     public function update(array $data, $id)
-    { 
+    {
         return Event::where('id', $id)->update($data);
     }
 
-    public function delete($id) 
+    public function delete($id)
     {
 
     }
 
-    public function find($id) 
+    public function find($id)
     {
         return Event::find($id);
     }
@@ -85,7 +78,7 @@ class EventRepository implements EventRepositoryInterface
     {
         return UserEvent::where('event_id', $eventId)->get();
     }
-    
+
     public function createUserEvent(array $data)
     {
         return UserEvent::create($data);

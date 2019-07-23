@@ -7,40 +7,39 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepository implements UserRepositoryInterface
 {
-  protected $model;
+  public function __construct()
+  {
 
-  public function __construct(User $user) {
-    $this->model = $user;
   }
 
   public function all()
   {
-    $this->model->all();
+    return User::all();
   }
 
   public function create(array $user)
   {
-    return $this->model->create($user);
+    return User::create($user);
   }
 
   public function update(array $user, $id)
   {
-    return $this->model->where('id', $id)
+    return User::where('id', $id)
       ->update($user);
   }
 
   public function delete($id)
   {
-    return $this->model->destroy($id);
+
   }
 
   public function find($id)
   {
-    return $this->model->find($id);
+    return User::find($id);
   }
 
   public function getEventsByUserId($userId)
   {
-      return $this->find($userId)->events;
+      return User::find($userId)->events;
   }
 }
