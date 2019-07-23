@@ -16,11 +16,13 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // Register client
-        $baseUrl = env('API_BASE_URL');
-
-        $this->app->singleton('GuzzleHttp\Client', function($api) use ($baseUrl) {
+        $this->app->singleton('GuzzleHttp\Client', function() {
             return new Client([
-                'base_uri' => $baseUrl
+                'base_uri' => env('API_BASE_URL'),
+                'headers' => [
+                    'Accept' => 'application/json',
+                    'Content-Type' => 'application/json'
+                ] 
             ]);
         });
 

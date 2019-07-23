@@ -7,6 +7,11 @@ use App\Http\Controllers\Controller;
 use App\Services\ApiInterface;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\Card\CardRepositoryInterface;
+use Illuminate\Support\Collection;
+use App\Models\Event;
+use App\Models\Card;
+use App\Models\UserEvent;
+use function GuzzleHttp\json_decode;
 
 class EventController extends Controller
 {
@@ -30,9 +35,13 @@ class EventController extends Controller
         return view('my-events')->with('events', $events);
     }
 
-    public function myCards($eventId) {
-        $cards = $this->eventRepository->getCardsByEventId($eventId);
-        return view('my-cards')->with('cards', $cards);
+    public function myEventWithCards($eventId) {
+        $myEvent = $this->eventRepository->find($eventId);
+        $myCards = $this->eventRepository->getMyCardsByEventId($eventId);
+        
+        return view('my-cards')
+            ->with('event', $myEvent)
+            ->with('cards', $myCards);
     }
 
     public function getAvailableCards($eventId)
@@ -41,8 +50,8 @@ class EventController extends Controller
         $cards = $this->service->getAllAvailableCardsByEventId($eventId);
 
         return view('available-cards')
-                    ->with('event', $event)
-                    ->with('cards', $cards);
+            ->with('event', $event)
+            ->with('cards', $cards);
     }
 
     // datatable ajax request
@@ -52,48 +61,68 @@ class EventController extends Controller
             ->make(true);
     }
 
-    public function addCards(Request $request, $id) {
+    public function closedEvents()
+    {
+        return $this->service->getAllClosedEvents();
+    }
+
+    public function addCards(Request $request, $eventId) {
         if ($request->has('selected_cards')) {
-            $array = $request->input('selected_cards');
+            $cardsArray = $request->input('selected_cards');
 
-            $model = $this->service->getEventById($id);
+            $event = $this->service->getEventById($eventId);
+            // Add event if not exist
+            $this->eventRepository->updateOrCreateEvent(
+                [
+                    'id' => $event->id,
+                    'start_date' => $event->start_date,
+                    'start_time' => $event->start_time,
+                    'card_price' => $event->card_price,
+                    'award' => $event->award
+                ],
+                ['id' => $event->id]
+            );
 
-            $eventArrayData = [
-                'id' => $model['id'],
-                'user_id' => auth()->user()->id,
-                'start_date' => $model['start_date'],
-                'start_time' => $model['start_time'],
-                'card_price' => $model['card_price'],
-                'award' => $model['award'],
-                'event_progress' => $model['event_progress']
-            ];
-
-            $this->eventRepository->updateOrCreateEvent($eventArrayData, ['id' => $model['id']]);
-
-            // add available cards selected
-            foreach ($array as $cardId) {
-                $card = $this->service->getCardById($cardId);
-                $cardArrayData = [
-                    'id' => $card['id'],
-                    'event_id' => $card['event_id'],
-                ];
-
-                $this->cardRepository->updateOrCreateCard($cardArrayData, ['id' => $card['id']]);
+            // Add user event
+            if ($this->eventRepository->getUserEventByEventIdAndCurrentUser($event->id) == null)
+            {
+                $this->eventRepository->createUserEvent([
+                    'user_id' => auth()->user()->id,
+                    'event_id' => $event->id
+                ]);
             }
 
+            // add selected cards
+            foreach ($cardsArray as $item) {
+                $card = (json_decode($item));
+                // external api update card model
+                $this->service->updateStatusCard([
+                    'Id' => $card->id, 
+                    'LotteryEventId' => $card->event_id,
+                    'IsAvailable' => false
+                ]);
 
-            return response()
-                ->json([
-                    'message' => 'Success',
-                    'status' => '200'
-                ], 200);
+                $this->cardRepository->updateOrCreateCard(
+                    [
+                        'id' => $card->id,
+                        'event_id' => $card->event_id,
+                        'user_id' => auth()->user()->id
+                    ],
+                    ['id' => $card->id]
+                );
+            }
+
+            // success response
+            return response()->json(['status' => '200'], 200);
         }
         else {
-            return response()
-                ->json([
-                    'message' => 'You must select at least one card',
-                    'status' => '400'
-                ], 400);
+            // error response
+            return response()->json(['status' => '400'], 400);
         }
+    }
+
+    public function test() 
+    {
+        return $this->eventRepository->myEvents();
     }
 }

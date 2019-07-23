@@ -32,8 +32,29 @@ class ApiService implements ApiInterface
                 'start_date' => $item->StartDate,
                 'start_time' => $item->StartTime,
                 'card_price' => $item->CardPrice,
-                'award' => $item->Award,
-                'event_progress' => $item->EventProgress
+                'award' => $item->Award
+            ]));
+        }
+
+        return $events;
+    }
+
+    public function getAllClosedEvents()
+    {
+        $response = $this->client->get('api/events/closed');
+        $data = $response->getBody()->getContents();
+        $collection = collect(json_decode($data));
+
+        $events = new Collection();
+
+        foreach ($collection as $item) {
+            $events->push(new Event([
+                'id' => $item->Id,
+                'winner_card_id' => $item->WinnerCard->Id,
+                'start_date' => $item->StartDate,
+                'start_time' => $item->StartTime,
+                'card_price' => $item->CardPrice,
+                'award' => $item->Award
             ]));
         }
 
@@ -52,7 +73,6 @@ class ApiService implements ApiInterface
             'start_time' => $object->StartTime,
             'card_price' => $object->CardPrice,
             'award' => $object->Award,
-            'event_progress' => $object->EventProgress
         ]);        
     }
 
@@ -86,8 +106,12 @@ class ApiService implements ApiInterface
         ]);
     }
 
-    public function updateStatusCard($card)
+    public function updateStatusCard(array $card)
     {
-        // $reponse = $this->client->put('/api/cards');
+        $response = $this->client->put('/api/cards', [
+            'body' => json_encode($card)
+        ]);
+        
+        return $response;
     }
 }

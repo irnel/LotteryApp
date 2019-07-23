@@ -38,6 +38,12 @@ class User extends Authenticatable
     ];
 
     public function events() {
-        return $this->hasMany(Event::class);
+        return $this->belongsToMany(Event::class, 'user_events')
+                    ->withPivot(['id', 'status']);;
+    }
+
+    public function cards() 
+    {
+        return $this->hasMany(Card::class);
     }
 }

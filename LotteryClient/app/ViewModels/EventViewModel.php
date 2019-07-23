@@ -10,6 +10,6 @@ class EventViewModel
     public $start_time;
     public $card_price;
     public $award;
-    public $event_progress;
+    public $status;
     public $available_cards;
 }

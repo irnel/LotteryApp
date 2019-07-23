@@ -6,11 +6,13 @@
         <div class="card-header">
             <div class="d-flex">
                 <h4 class="card-text">Available Events</h4>
+                @if ($events->count() > 0)
                 <h5 class="card-text ml-2">
                     <span class="badge badge-pill badge-primary shadow-sm mt-1 px-2">
                         {{ $events->count() }}
                     </span>
-                </h5>
+                </h5>  
+                @endif
             </div>
         </div>
 
@@ -52,6 +54,9 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('plugins/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js') }}"></script>
+
 <script>
     $(document).ready(function() {
         $('#table_events').DataTable();

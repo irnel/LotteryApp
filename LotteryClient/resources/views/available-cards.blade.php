@@ -40,7 +40,7 @@
                             <td>
                                 <div class="form-check">
                                     <input class="form-check-input position-static" type="checkbox"
-                                        name="selected_cards[]" value="{{ $card->id }}">
+                                        name="selected_cards[]" value="{{ $card }}">
                                 </div>
                             </td>
                         </tr>
@@ -58,10 +58,14 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('plugins/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js') }}"></script>
+<script src="{{ asset('plugins/Notification/toastr.min.js') }}"></script>
+
 <script>
     $(document).ready(function() {
         $('#table_cards').DataTable();
-
+        
         var form = $('#form_cards');
         // Ajax request
         form.submit(function(e) {
@@ -73,6 +77,10 @@
                 dataType: 'json',
                 success: function(result) {
                     window.location.href = "{{ route('home') }}";
+                    toastr.success('Select cards successfully');
+                },
+                error: function(error) {
+                    toastr.error('You must select at least one card');
                 }
             });
         });

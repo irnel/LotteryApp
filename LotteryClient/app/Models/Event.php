@@ -9,21 +9,20 @@ class Event extends Model
 {
     protected $fillable = [
         'id',
-        'user_id',
+        'winner_card_id',
         'start_date',
         'start_time',
         'card_price',
-        'award',
-        'event_progress',
-        'status'
+        'award'
     ];
 
-    public function user()
+    public function users()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class, 'user_events')
+                    ->withPivot(['id', 'status']);
     }
 
-    public function cards()
+    public function cards() 
     {
         return $this->hasMany(Card::class);
     }

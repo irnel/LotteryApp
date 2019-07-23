@@ -3,6 +3,7 @@
 namespace App\Repositories\Card;
 
 use App\Models\Card;
+use Illuminate\Support\Facades\Auth;
 
 class CardRepository implements CardRepositoryInterface
 {

@@ -24,10 +24,11 @@
 
             @endif
 
-            <table id="table_mycards" class="table table-responsive-lg table-hover">
+            <table id="table_mycards" class="table table-responsive-sm table-sm table-hover">
                 <thead>
                     <tr>
                         <th><i class="far fa-credit-card mr-1"></i>Number</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -36,6 +37,16 @@
                     @foreach ($cards as $card)
                     <tr>
                         <td>{{ $card->id }}</td>
+                        <td>
+                        @if ($event->winner_card_id == $card->id)
+                            <h6 class="card-text text-white  text-center mr-2">
+                                <span class="badge badge-pill badge-success shadow-sm py-1 px-2">
+                                    <i class="fa fa-trophy prefix mr-1" aria-hidden="true"></i>
+                                    Winner
+                                </span>
+                            </h6>                            
+                        @endif
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>                    
@@ -48,6 +59,9 @@
 @endsection
 
 @section('scripts')
+<script src="{{ asset('plugins/DataTables/DataTables-1.10.18/js/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('plugins/DataTables/DataTables-1.10.18/js/dataTables.bootstrap4.min.js') }}"></script>
+
 <script>
     $(document).ready(function() {
         $('#table_mycards').DataTable();

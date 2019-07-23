@@ -21,12 +21,15 @@ Auth::routes();
 Route::get('/home', 'Home\HomeController@index')->name('home');
 
 Route::get('/my-events', 'Event\EventController@myEvents')->name('my-events');
-Route::get('/my-events/{eventId}/cards', 'Event\EventController@myCards')->name('my-event.cards');
+Route::get('/my-events/{eventId}/cards', 'Event\EventController@myEventWithCards')->name('my-event.cards');
 Route::get('/events/{eventId}/available-cards', 'Event\EventController@getAvailableCards')->name('available-cards');
-Route::post('/events/{id}/cards', 'Event\EventController@addCards')->name('cards.add');
+Route::post('/events/{eventId}/cards', 'Event\EventController@addCards')->name('cards.add');
 
 // Api Routes
 Route::get('/api/events/{eventId}/cards', 'Event\EventController@getAvailableCardsByEventId')->name('cards.show');
+Route::get('/api/events/closed', 'Event\EventController@closedEvents');
+
+Route::get('/test', 'Event\EventController@test');
 
 // Redirect to home by default
 Route::redirect('/', 'home');

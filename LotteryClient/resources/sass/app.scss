@@ -54,22 +54,22 @@ $img: nth($images, random(length($images)));
 }
 
 .btn-circle {
-    width: 50px;
-    height: 50px;
+    width: 100%;
+    height: 40px;
     text-align: center;
     padding: 6px 0;
-    font-size: 12px;
-    border-radius: 25px;
+    font-size: 16px;
+    border-radius: 20px;
 }
 
 .btn-circle.btn-xl {
     display: flex;
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: 50px;
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    border-radius: 50px;
+    border-radius: 25px;
 }
 
 .btn-circle.btn-lg {
@@ -95,5 +95,8 @@ $img: nth($images, random(length($images)));
     box-shadow: 7px 10px 29px 0px rgba(0,0,0,0.75);
 }
 
+.toast-top-right {
+    top: 10% !important;
+}
 
 

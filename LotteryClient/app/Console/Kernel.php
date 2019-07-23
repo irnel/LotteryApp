@@ -4,8 +4,6 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Services\ApiInterface;
-use App\Repositories\Event\EventRepositoryInterface;
 
 class Kernel extends ConsoleKernel
 {
@@ -15,7 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        Commands\UpdateEventCommand::class
     ];
 
     /**
@@ -26,9 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->call(function () {
-            // code here
-        })->everyFiveMinutes();
+        $schedule->command('update_event:task')->everyFiveMinutes();
     }
 
     /**

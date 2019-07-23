@@ -15,19 +15,12 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->string('status')->nullable();
+            $table->bigInteger('winner_card_id')->nullable();
             $table->dateTime('start_date');
             $table->string('start_time');
             $table->bigInteger('card_price');
             $table->bigInteger('award');
-            $table->string('event_progress');
             $table->timestamps();
-
-            $table->foreign('user_id')
-                  ->references('id')->on('users')
-                  ->onUpdate('cascade')
-                  ->onDelete('cascade');
         });
     }
 
