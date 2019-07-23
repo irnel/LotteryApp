@@ -7,11 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Services\ApiInterface;
 use App\Repositories\Event\EventRepositoryInterface;
 use App\Repositories\Card\CardRepositoryInterface;
-use Illuminate\Support\Collection;
-use App\Models\Event;
-use App\Models\Card;
-use App\Models\UserEvent;
-use function GuzzleHttp\json_decode;
 
 class EventController extends Controller
 {
@@ -38,7 +33,7 @@ class EventController extends Controller
     public function myEventWithCards($eventId) {
         $myEvent = $this->eventRepository->find($eventId);
         $myCards = $this->eventRepository->getMyCardsByEventId($eventId);
-        
+
         return view('my-cards')
             ->with('event', $myEvent)
             ->with('cards', $myCards);
@@ -97,7 +92,7 @@ class EventController extends Controller
                 $card = (json_decode($item));
                 // external api update card model
                 $this->service->updateStatusCard([
-                    'Id' => $card->id, 
+                    'Id' => $card->id,
                     'LotteryEventId' => $card->event_id,
                     'IsAvailable' => false
                 ]);
@@ -121,7 +116,7 @@ class EventController extends Controller
         }
     }
 
-    public function test() 
+    public function test()
     {
         return $this->eventRepository->myEvents();
     }
