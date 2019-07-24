@@ -118,6 +118,7 @@ class EventController extends Controller
 
     public function test()
     {
-        return $this->eventRepository->myEvents();
+        $winnerCard = $this->eventRepository->update(['winner_card_id' => 2300], 1);
+        dd($winnerCard);
     }
 }

@@ -38,12 +38,6 @@ class EventRepository implements EventRepositoryInterface
         return auth()->user()->events;
     }
 
-    public function winnerCard($eventId)
-    {
-        $event = Event::find($eventId);
-        return Card::where('id', $event->winner_card_id)->first();
-    }
-
     public function getEventsByUserId($userId)
     {
         return $this->all()->where('user_id', $userId);
