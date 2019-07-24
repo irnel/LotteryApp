@@ -15,8 +15,6 @@ interface EventRepositoryInterface extends RepositoryInterface
 
     public function myEvents();
 
-    public function winnerCard($eventId);
-
     public function updateOrCreateEvent(array $event, array $params);
 
     public function getUserEventByEventIdAndCurrentUser($eventId);
